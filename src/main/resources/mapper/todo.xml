@@ -4,20 +4,43 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.practiceTodo.todolist.domain.todo.TodoRepository">
-	  <insert id="save" parameterType="com.practiceTodo.todolist.domain.todo.Todo">
-	  	insert into
-	  		todolist_mst
-	  	values(
-	  		0,
-	  		#{todo_content},
-	  		0,
-	  		#{importance_flag},
-	  		now(),
-	  		now()
-	  	)
-	  	
-	  	
-	  </insert>
+  	<insert id="save" parameterType="com.practiceTodo.todolist.domain.todo.Todo">
+  		insert into
+  			todolist_mst
+  		values(
+  			0,
+  			#{todo_content},
+  			0,
+  			#{importance_flag},
+  			now(),
+  			now()
+  		)
+  		
+  	</insert>
+	  
+	  
+	  <select id="getTodolist" parameterType="hashmap" resultType="com.practiceTodo.todolist.domain.todo.Todo">
+	 		select
+	 			tm.todo_code,
+	 			
+	 			tm.todo_content,
+	 			tm.todo_complete,
+	 			tm.importance_flag,
+	 			
+	 			tt.total_count,
+	 			
+	 			tm.create_date,
+	 			tm.update_date
+	 		from
+	 			todolist_mst tm
+				LEFT OUTER JOIN (select
+											COUNT(*) as total_count
+									  from
+											todolist_mst) tt ON(1 = 1)
+	 		order by
+	 			todo_code desc
+	 		limit #{index}, #{count}
+	  </select>
 	  
   </mapper>
  

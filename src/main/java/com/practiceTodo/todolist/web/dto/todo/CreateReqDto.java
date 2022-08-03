@@ -5,7 +5,7 @@ import com.practiceTodo.todolist.domain.todo.Todo;
 import lombok.Data;
 
 @Data
-public class CreateTodoReqDto {
+public class CreateReqDto {
 	private boolean importance;
 	private String todo;
 	
@@ -14,6 +14,5 @@ public class CreateTodoReqDto {
 				.importance_flag(importance ? 1 : 0)
 				.todo_content(todo)
 				.build();
-			
 	}
 }
